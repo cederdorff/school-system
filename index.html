@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <title>School System</title>
+</head>
+
+<body>
+    <header>
+        <h1>School System</h1>
+    </header>
+
+    <section>
+        <h2>Teachers</h2>
+        <table id="teachers-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <form id="form-create-teacher">
+            <label for="teacher-name">Name</label>
+            <input type="text" name="name" id="teacher-name" placeholder="Type new teacher name" required>
+            <label for="teacher-name">Email</label>
+            <input type="email" name="email" id="teacher-email" placeholder="Type new teacher email" required>
+            <button>Create</button>
+        </form>
+
+    </section>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
