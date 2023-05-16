@@ -60,7 +60,6 @@ function showTeachers(listOfTeachers) {
 
 function sortByName() {
     // teachers.sort((teacher1, teacher2) => teacher1.name.localeCompare(teacher2.name));
-
     teachers.sort(function (teacher1, teacher2) {
         return teacher1.name.localeCompare(teacher2.name);
     });
