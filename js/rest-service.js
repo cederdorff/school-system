@@ -23,6 +23,28 @@ async function createCourse(name, ectsPoints, maxStudents, startDate, endDate, t
     return await fetch(endpoint + "/courses.json", { method: "POST", body: json });
 }
 
+async function updateCourse(
+    id,
+    name,
+    ectsPoints,
+    maxStudents,
+    startDate,
+    endDate,
+    teacher,
+    students
+) {
+    const course = { name, ectsPoints, maxStudents, startDate, endDate, teacher, students };
+    const json = JSON.stringify(course);
+    return await fetch(`${endpoint}/courses/${id}.json`, {
+        method: "PUT",
+        body: json
+    });
+}
+
+async function deleteCourse(id) {
+    return await fetch(`${endpoint}/courses/${id}.json`, { method: "DELETE" });
+}
+
 // ========== TEACHERS ========== //
 
 async function getTeachers() {
@@ -106,5 +128,7 @@ export {
     updateTeacher,
     deleteTeacher,
     getCourses,
-    createCourse
+    createCourse,
+    updateCourse,
+    deleteCourse
 };
