@@ -49,11 +49,46 @@ img {
     height: auto;
 }
 
+main {
+    padding: 2em;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+/* Style the links inside the navigation bar */
+nav a {
+    display: inline-block;
+    color: var(--text-color-light);
+    text-align: center;
+    padding: 20px 0;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 2px solid rgb(38, 76, 89);
+    width: 100%;
+}
+
+/* Change the color of links on hover */
+nav a:hover {
+    background-color: var(--light-green);
+    color: var(--text-color-dark);
+}
+
+/* Add a color to the active/current link */
+nav a.active {
+    background-color: var(--light-green);
+    color: var(--green);
+}
+
 /* ---------- header styling ---------- */
 header {
     background-color: var(--green);
     color: var(--text-color-light);
-    padding: 1em;
+    padding: 1em 2em;
 }
 
 /* ---------- footer styling ---------- */
@@ -69,7 +104,7 @@ footer {
 
 table {
     border-collapse: collapse;
-    width: 75vw;
+    width: 100%;
     margin: auto;
     background-color: var(--light-grey);
 }
