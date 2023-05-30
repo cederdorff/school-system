@@ -3,12 +3,14 @@ import {
     getTeachers,
     getStudents,
     createCourse,
-    deleteCourse
+    deleteCourse,
+    updateCourse
 } from "./rest-service.js";
 
 let courses = [];
 let teachers = [];
 let students = [];
+let selectedCourseId;
 
 window.addEventListener("load", initCourses);
 
@@ -24,6 +26,7 @@ async function initCourses() {
 
     // event listeners
     document.querySelector("#form-create-course").addEventListener("submit", createCourseSubmit);
+    document.querySelector("#form-update-course").addEventListener("submit", updateCourseSubmit);
 }
 
 async function updateCourseTable() {
@@ -44,7 +47,7 @@ function showCourses(listOfCourses) {
             <td>${course.startDate}</td>
             <td>${course.endDate}</td>
             <td>${teacher ? teacher.name : "No teacher"}</td>
-            <td>${course.students.length}</td>
+            <td>${course.students ? course.students.length : 0}</td>
             <td>
                 <button class="btn-delete">Delete</button>
                 <button class="btn-update">Update</button>
@@ -59,8 +62,36 @@ function showCourses(listOfCourses) {
             });
         document
             .querySelector("#courses-table tbody tr:last-child .btn-update")
-            .addEventListener("click", function () {});
+            .addEventListener("click", function () {
+                showUpdateCourseDialog(course);
+            });
     }
+}
+
+function showUpdateCourseDialog(course) {
+    console.log(course);
+    selectedCourseId = course.id;
+    const form = document.querySelector("#form-update-course");
+    form.name.value = course.name;
+
+    form.ectsPoints.value = course.ectsPoints;
+    form.maxStudents.value = course.maxStudents;
+    form.startDate.value = course.startDate;
+    form.endDate.value = course.endDate;
+    form.teacher.value = course.teacher;
+
+    setSelectedStudents(form, course.students);
+    document.querySelector("#dialog-update-course").showModal();
+}
+
+function setSelectedStudents(form, students) {
+    form.querySelectorAll(".checkboxes input").forEach(function (input) {
+        if (students?.includes(input.value)) {
+            input.checked = true;
+        } else {
+            input.checked = false;
+        }
+    });
 }
 
 async function deleteCourseClicked(course) {
@@ -78,6 +109,7 @@ function generateTeacherOptions(teachers) {
     }
 
     document.querySelector("#course-teacher").insertAdjacentHTML("beforeend", html);
+    document.querySelector("#update-course-teacher").insertAdjacentHTML("beforeend", html);
 }
 
 function generateStudentCheckboxes(students) {
@@ -92,6 +124,7 @@ function generateStudentCheckboxes(students) {
     }
 
     document.querySelector("#course-students").insertAdjacentHTML("beforeend", html);
+    document.querySelector("#update-course-students").insertAdjacentHTML("beforeend", html);
 }
 
 async function createCourseSubmit(event) {
@@ -119,6 +152,36 @@ async function createCourseSubmit(event) {
 
     if (response.ok) {
         await updateCourseTable();
+    }
+}
+
+async function updateCourseSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+
+    const name = form.name.value;
+    const ectsPoints = form.ectsPoints.value;
+    const maxStudents = form.maxStudents.value;
+    const startDate = form.startDate.value;
+    const endDate = form.endDate.value;
+    const teacher = form.teacher.value;
+    const students = getSelectedStudents(form);
+
+    const response = await updateCourse(
+        selectedCourseId,
+        name,
+        ectsPoints,
+        maxStudents,
+        startDate,
+        endDate,
+        teacher,
+        students
+    );
+
+    if (response.ok) {
+        await updateCourseTable();
+        document.querySelector("#dialog-update-course").close();
     }
 }
 
