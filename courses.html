@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <title>School System - Courses</title>
+</head>
+
+<body>
+    <header>
+        <h1>School System</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="courses.html" class="active">Courses</a>
+            <a href="teachers.html">Teachers</a>
+            <a href="students.html">Students</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Courses</h2>
+            <table id="courses-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ECTS Points</th>
+                        <th>Max Students</th>
+                        <th>Start Date</th>
+                        <th>Start End</th>
+                        <th>Teacher</th>
+                        <th>Students</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <form id="form-create-course">
+                <h2>Create course</h2>
+                <label for="course-name">Name</label>
+                <input type="text" name="name" id="course-name" placeholder="Type new course name" required>
+                <label for="course-name">Email</label>
+                <input type="email" name="email" id="course-email" placeholder="Type new course email" required>
+                <button>Create</button>
+            </form>
+
+            <dialog id="dialog-update-course">
+                <form id="form-update-course">
+                    <h2>Update course</h2>
+                    <label for="update-course-name">Name</label>
+                    <input type="text" name="name" id="update-course-name" placeholder="Type new course name" required>
+                    <label for="update-course-name">Email</label>
+                    <input type="email" name="email" id="update-course-email" placeholder="Type new course email"
+                        required>
+                    <button>Update</button>
+                </form>
+            </dialog>
+        </section>
+    </main>
+    <script src="app.js"></script>
+    <script src="courses.js"></script>
+</body>
+
+</html>
