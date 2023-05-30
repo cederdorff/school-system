@@ -1,4 +1,4 @@
-"use strict";
+import { getTeachers, createTeacher, updateTeacher, deleteTeacher } from "./rest-service.js";
 
 let teachers = [];
 let selectedTeacherId;
@@ -22,25 +22,13 @@ async function updateTeacherTable() {
     showTeachers(teachers);
 }
 
-function createTeacherSubmit(event) {
+async function createTeacherSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
-    createTeacher(name, email);
-}
 
-async function createTeacher(name, email) {
-    const newTeacher = {
-        name: name,
-        email: email
-    };
-    console.log(newTeacher);
-    const json = JSON.stringify(newTeacher);
-    console.log(json);
-
-    const response = await fetch(endpoint + "/teachers.json", { method: "POST", body: json });
-
+    const response = await createTeacher(name, email);
     if (response.ok) {
         await updateTeacherTable();
     }
@@ -55,7 +43,6 @@ function showTeachers(listOfTeachers) {
             <td>
                 <button class="btn-delete">Delete</button>
                 <button class="btn-update">Update</button>
-
             </td>
         </tr>
     `;
@@ -63,7 +50,7 @@ function showTeachers(listOfTeachers) {
         document
             .querySelector("#teachers-table tbody tr:last-child .btn-delete")
             .addEventListener("click", function () {
-                deleteTeacher(teacher.id);
+                deleteTeacherClicked(teacher);
             });
         document
             .querySelector("#teachers-table tbody tr:last-child .btn-update")
@@ -82,32 +69,23 @@ function showUpdateDialog(teacher) {
     document.querySelector("#dialog-update-teacher").showModal();
 }
 
-function updateTeacherSubmit(event) {
+async function updateTeacherSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
-    console.log(name, email);
-    updateTeacher(selectedTeacherId, name, email);
-    document.querySelector("#dialog-update-teacher").close();
-}
 
-async function updateTeacher(id, name, email) {
-    const teacher = { name, email };
-    const json = JSON.stringify(teacher);
-    const response = await fetch(`${endpoint}/teachers/${id}.json`, {
-        method: "PUT",
-        body: json
-    });
+    const response = await updateTeacher(selectedTeacherId, name, email);
     if (response.ok) {
-        updateTeacherTable();
+        await updateTeacherTable();
+        document.querySelector("#dialog-update-teacher").close();
     }
 }
 
-async function deleteTeacher(id) {
-    const response = await fetch(`${endpoint}/teachers/${id}.json`, { method: "DELETE" });
+async function deleteTeacherClicked(teacher) {
+    const response = await deleteTeacher(teacher.id);
     if (response.ok) {
-        updateTeacherTable();
+        await updateTeacherTable();
     }
 }
 
@@ -116,11 +94,4 @@ function sortByName() {
     teachers.sort(function (teacher1, teacher2) {
         return teacher1.name.localeCompare(teacher2.name);
     });
-}
-
-async function getTeachers() {
-    const response = await fetch(endpoint + "/teachers.json");
-    const data = await response.json();
-    console.log(data);
-    return prepareData(data);
 }

@@ -1,4 +1,4 @@
-"use strict";
+import { getStudents, createStudent, updateStudent, deleteStudent } from "./rest-service.js";
 
 let students = [];
 let selectedStudentId;
@@ -22,24 +22,13 @@ async function updateStudentTable() {
     showStudents(students);
 }
 
-function createStudentSubmit(event) {
+async function createStudentSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
-    createStudent(name, email);
-}
 
-async function createStudent(name, email) {
-    const newStudent = {
-        name: name,
-        email: email
-    };
-    console.log(newStudent);
-    const json = JSON.stringify(newStudent);
-    console.log(json);
-
-    const response = await fetch(endpoint + "/students.json", { method: "POST", body: json });
+    const response = await createStudent(name, email);
 
     if (response.ok) {
         await updateStudentTable();
@@ -63,13 +52,20 @@ function showStudents(listOfStudents) {
         document
             .querySelector("#students-table tbody tr:last-child .btn-delete")
             .addEventListener("click", function () {
-                deleteStudent(student.id);
+                deleteStudentClicked(student);
             });
         document
             .querySelector("#students-table tbody tr:last-child .btn-update")
             .addEventListener("click", function () {
                 showUpdateDialog(student);
             });
+    }
+}
+
+async function deleteStudentClicked(student) {
+    const response = await deleteStudent(student.id);
+    if (response.ok) {
+        await updateStudentTable();
     }
 }
 
@@ -82,32 +78,17 @@ function showUpdateDialog(student) {
     document.querySelector("#dialog-update-student").showModal();
 }
 
-function updateStudentSubmit(event) {
+async function updateStudentSubmit(event) {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
-    console.log(name, email);
-    updateStudent(selectedStudentId, name, email);
-    document.querySelector("#dialog-update-student").close();
-}
 
-async function updateStudent(id, name, email) {
-    const student = { name, email };
-    const json = JSON.stringify(student);
-    const response = await fetch(`${endpoint}/students/${id}.json`, {
-        method: "PUT",
-        body: json
-    });
-    if (response.ok) {
-        updateStudentTable();
-    }
-}
+    const response = await updateStudent(selectedStudentId, name, email);
 
-async function deleteStudent(id) {
-    const response = await fetch(`${endpoint}/students/${id}.json`, { method: "DELETE" });
     if (response.ok) {
-        updateStudentTable();
+        await updateStudentTable();
+        document.querySelector("#dialog-update-student").close();
     }
 }
 
@@ -116,11 +97,4 @@ function sortByName() {
     students.sort(function (student1, student2) {
         return student1.name.localeCompare(student2.name);
     });
-}
-
-async function getStudents() {
-    const response = await fetch(endpoint + "/students.json");
-    const data = await response.json();
-    console.log(data);
-    return prepareData(data);
 }

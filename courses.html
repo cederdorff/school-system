@@ -42,26 +42,40 @@
                 <h2>Create course</h2>
                 <label for="course-name">Name</label>
                 <input type="text" name="name" id="course-name" placeholder="Type new course name" required>
-                <label for="course-name">Email</label>
-                <input type="email" name="email" id="course-email" placeholder="Type new course email" required>
+                <label for="course-ects">ECTS</label>
+                <input type="number" name="ectsPoints" id="course-ects" placeholder="Type number of ECTS points"
+                    required>
+                <label for="course-max-students">Max Students</label>
+                <input type="number" name="maxStudents" id="course-max-students"
+                    placeholder="Type number of max students" required>
+                <label for="course-start-date">Start Date</label>
+                <input type="date" name="startDate" id="course-start-date" required>
+                <label for="course-end-date">End Date</label>
+                <input type="date" name="endDate" id="course-end-date" required>
+
+                <label for="course-teacher">Teacher</label>
+                <select name="teacher" id="course-teacher">
+                    <option selected disabled>Choose Teacher</option>
+                </select>
+
+                <label for="course-students">Students</label>
+                <div id="course-students" class="checkboxes">
+                </div>
+
                 <button>Create</button>
             </form>
 
             <dialog id="dialog-update-course">
                 <form id="form-update-course">
                     <h2>Update course</h2>
-                    <label for="update-course-name">Name</label>
-                    <input type="text" name="name" id="update-course-name" placeholder="Type new course name" required>
-                    <label for="update-course-name">Email</label>
-                    <input type="email" name="email" id="update-course-email" placeholder="Type new course email"
-                        required>
+
+
                     <button>Update</button>
                 </form>
             </dialog>
         </section>
     </main>
-    <script src="app.js"></script>
-    <script src="courses.js"></script>
+    <script src="courses.js" type="module"></script>
 </body>
 
 </html>

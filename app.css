@@ -127,7 +127,6 @@ tr:nth-child(even) {
 }
 
 tr {
-    cursor: pointer;
     transition: 0.5s;
     animation: fadeIn 0.5s;
 }
@@ -183,7 +182,42 @@ input {
     background: var(--white);
 }
 
+select {
+    margin: 1em auto;
+    width: 100%;
+    max-width: 380px;
+    padding: 1em;
+    border: 2px solid var(--green);
+    display: block;
+    background: var(--white);
+}
+
+.checkboxes {
+    margin: 1em auto;
+    width: 100%;
+    max-width: 338px;
+    padding: 1em;
+    border: 2px solid var(--green);
+    display: block;
+    background: var(--white);
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    align-items: center;
+    justify-items: start;
+}
+
+.checkboxes label {
+    display: inline;
+}
+
 dialog {
-    max-width: 550px;
-    width: 90vw;
+    border-color: var(--green);
+    background-color: var(--light-green);
+    width: 65vw;
+    padding: 2em 1em;
+}
+
+dialog::backdrop {
+    background: rgb(172, 198, 201, 0.8);
 }
