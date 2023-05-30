@@ -1,6 +1,7 @@
 /* ---------- root variables ---------- */
 :root {
     --green: rgb(38, 76, 89);
+    --green-opacity: rgba(38, 76, 89, 0.75);
     --light-green: rgb(172, 198, 201);
     --light-grey: #f1f1f4;
     --text-color-light: #f1f1f1;
@@ -132,7 +133,7 @@ tr {
 }
 
 tr:hover {
-    background-color: var(--green);
+    background-color: var(--green-opacity);
     color: var(--text-color-light);
 }
 
@@ -150,7 +151,6 @@ form {
 
 button {
     font-weight: 300;
-    font-size: 1em;
     text-align: center;
     cursor: pointer;
     border: none;
@@ -159,9 +159,13 @@ button {
     background-color: var(--green);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    padding: 0.5em 1em;
+    padding: 0.5em;
     width: 100%;
     max-width: 380px;
+}
+
+form button {
+    font-size: 1em;
 }
 
 tr button {
