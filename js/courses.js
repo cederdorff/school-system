@@ -36,7 +36,7 @@ function showCourses(listOfCourses) {
             <td>${course.maxStudents}</td>
             <td>${course.startDate}</td>
             <td>${course.endDate}</td>
-            <td>${teacher.name}</td>
+            <td>${teacher ? teacher.name : "No teacher"}</td>
             <td>${course.students.length}</td>
             <td>
                 <button class="btn-delete">Delete</button>
