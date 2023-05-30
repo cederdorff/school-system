@@ -1,4 +1,10 @@
-import { getCourses, getTeachers, getStudents, createCourse } from "./rest-service.js";
+import {
+    getCourses,
+    getTeachers,
+    getStudents,
+    createCourse,
+    deleteCourse
+} from "./rest-service.js";
 
 let courses = [];
 let teachers = [];
@@ -21,6 +27,7 @@ async function initCourses() {
 }
 
 async function updateCourseTable() {
+    document.querySelector("#courses-table tbody").innerHTML = "";
     courses = await getCourses();
     showCourses(courses);
 }
@@ -47,10 +54,19 @@ function showCourses(listOfCourses) {
         document.querySelector("#courses-table tbody").insertAdjacentHTML("beforeend", html);
         document
             .querySelector("#courses-table tbody tr:last-child .btn-delete")
-            .addEventListener("click", function () {});
+            .addEventListener("click", function () {
+                deleteCourseClicked(course);
+            });
         document
             .querySelector("#courses-table tbody tr:last-child .btn-update")
             .addEventListener("click", function () {});
+    }
+}
+
+async function deleteCourseClicked(course) {
+    const response = await deleteCourse(course.id);
+    if (response.ok) {
+        await updateCourseTable();
     }
 }
 
