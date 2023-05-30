@@ -152,6 +152,11 @@ async function createCourseSubmit(event) {
 
     if (response.ok) {
         await updateCourseTable();
+        form.reset();
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     }
 }
 
