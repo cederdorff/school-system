@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <title>School System - Students</title>
+</head>
+
+<body>
+    <header>
+        <h1>School System</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="courses.html">Courses</a>
+            <a href="teachers.html">Teachers</a>
+            <a href="students.html" class="active">Students</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Students</h2>
+            <table id="students-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <form id="form-create-student">
+                <h2>Create Student</h2>
+                <label for="student-name">Name</label>
+                <input type="text" name="name" id="student-name" placeholder="Type new student name" required>
+                <label for="student-name">Email</label>
+                <input type="email" name="email" id="student-email" placeholder="Type new student email" required>
+                <button>Create</button>
+            </form>
+
+            <dialog id="dialog-update-student">
+                <form id="form-update-student">
+                    <h2>Update student</h2>
+                    <label for="update-student-name">Name</label>
+                    <input type="text" name="name" id="update-student-name" placeholder="Type new student name"
+                        required>
+                    <label for="update-student-name">Email</label>
+                    <input type="email" name="email" id="update-student-email" placeholder="Type new student email"
+                        required>
+                    <button>Update</button>
+                </form>
+            </dialog>
+        </section>
+    </main>
+    <script src="app.js"></script>
+    <script src="students.js"></script>
+</body>
+
+</html>
