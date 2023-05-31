@@ -55,7 +55,7 @@ async function deleteCourse(id) {
 async function getTeachers() {
     const response = await fetch(endpoint + "/teachers.json");
     const data = await response.json();
-    return prepareData(data);
+    return prepareData(data); // Only for Firebase! prepareData is used to transform object of objects to array of objects
 }
 
 // create teacher by given name and email
@@ -88,7 +88,7 @@ async function deleteTeacher(id) {
 async function getStudents() {
     const response = await fetch(endpoint + "/students.json");
     const data = await response.json();
-    return prepareData(data);
+    return prepareData(data); // Only for Firebase! prepareData is used to transform object of objects to array of objects
 }
 
 // create student by name and email
