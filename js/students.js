@@ -1,15 +1,17 @@
+// READ TEACHERS.JS FOR MORE COMMENTS
+// imports from the module rest-service.js
 import { getStudents, createStudent, updateStudent, deleteStudent } from "./rest-service.js";
-
+// global variabels (global for this modules)
 let students = [];
 let selectedStudentId;
-
+// window on load event executes initStudents
 window.addEventListener("load", initStudents);
 
 async function initStudents() {
     console.log("students.js is running 🎉");
     await updateStudentTable();
 
-    //events
+    // event listeners for form submit
     document.querySelector("#form-create-student").addEventListener("submit", createStudentSubmit);
     document.querySelector("#form-update-student").addEventListener("submit", updateStudentSubmit);
 }

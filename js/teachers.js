@@ -10,7 +10,7 @@ async function initTeachers() {
     console.log("teachers.js is running 🎉");
     await updateTeacherTable();
 
-    // event listeners
+    // event listeners for form submit
     document.querySelector("#form-create-teacher").addEventListener("submit", createTeacherSubmit);
     document.querySelector("#form-update-teacher").addEventListener("submit", updateTeacherSubmit);
 }
