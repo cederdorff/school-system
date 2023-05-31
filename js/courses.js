@@ -121,13 +121,14 @@ async function deleteCourseClicked(course) {
     }
 }
 
+// generates teacher option for select (dropdown)
 function generateTeacherOptions(teachers) {
     let html = "";
-
+    // loops through all teachers and creates an option for each of them
     for (const teacher of teachers) {
         html += /*html*/ `<option value="${teacher.id}">${teacher.name}</option>`;
     }
-
+    // adds the options to select(#course-teacher) in create form and select(#update-course-teacher) in update form
     document.querySelector("#course-teacher").insertAdjacentHTML("beforeend", html);
     document.querySelector("#update-course-teacher").insertAdjacentHTML("beforeend", html);
 }
