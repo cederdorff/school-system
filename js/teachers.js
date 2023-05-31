@@ -15,20 +15,25 @@ async function initTeachers() {
     document.querySelector("#form-update-teacher").addEventListener("submit", updateTeacherSubmit);
 }
 
+// updates the table view with new fetched teachers
 async function updateTeacherTable() {
+    // reset the table content (tbody) before adding new updated content
     document.querySelector("#teachers-table tbody").innerHTML = "";
+    // get all teachers (updated) from Firebase and save in global variable
     teachers = await getTeachers();
+    // sort by name
     sortByName();
-
+    // show all teachers
     showTeachers(teachers);
 }
 
+// submit event for create form (new teacher)
 async function createTeacherSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-
+    event.preventDefault(); // prevent the page from refresh
+    const form = event.target; // reference to the form
+    const name = form.name.value; // get name from form
+    const email = form.email.value; // get email from form
+    // call createTeacher from rest-service. createTeacher returns a "response promise"
     const response = await createTeacher(name, email);
     if (response.ok) {
         await updateTeacherTable();
