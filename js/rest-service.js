@@ -3,12 +3,14 @@ const endpoint = "https://race-school-system-default-rtdb.firebaseio.com";
 
 // ========== COURSES ========== //
 
+// get all courses from Firebase Rest Endpoint
 async function getCourses() {
     const response = await fetch(endpoint + "/courses.json");
     const data = await response.json();
-    return prepareData(data);
+    return prepareData(data); // Only for Firebase! prepareData is used to transform object of objects to array of objects
 }
 
+// create a new course
 async function createCourse(name, ectsPoints, maxStudents, startDate, endDate, teacher, students) {
     const newCourse = {
         name,
@@ -23,6 +25,7 @@ async function createCourse(name, ectsPoints, maxStudents, startDate, endDate, t
     return await fetch(endpoint + "/courses.json", { method: "POST", body: json });
 }
 
+// update a course by given id prop and name, ectsPoints, maxStudents, startDate, endDate, teacher, & students
 async function updateCourse(
     id,
     name,
@@ -41,18 +44,21 @@ async function updateCourse(
     });
 }
 
+// delete a course by given id
 async function deleteCourse(id) {
     return await fetch(`${endpoint}/courses/${id}.json`, { method: "DELETE" });
 }
 
 // ========== TEACHERS ========== //
 
+// get all teachers from Firebase Rest Endpoint
 async function getTeachers() {
     const response = await fetch(endpoint + "/teachers.json");
     const data = await response.json();
     return prepareData(data);
 }
 
+// create teacher by given name and email
 async function createTeacher(name, email) {
     const newTeacher = {
         name: name,
@@ -62,6 +68,7 @@ async function createTeacher(name, email) {
     return await fetch(endpoint + "/teachers.json", { method: "POST", body: json });
 }
 
+// update teacher by given id, name and email
 async function updateTeacher(id, name, email) {
     const teacher = { name, email };
     const json = JSON.stringify(teacher);
@@ -71,17 +78,20 @@ async function updateTeacher(id, name, email) {
     });
 }
 
+// delete a teacher by given id
 async function deleteTeacher(id) {
     return await fetch(`${endpoint}/teachers/${id}.json`, { method: "DELETE" });
 }
 
 // ========== STUDENTS ========== //
+// get all students from Firebase Rest Endpoint
 async function getStudents() {
     const response = await fetch(endpoint + "/students.json");
     const data = await response.json();
     return prepareData(data);
 }
 
+// create student by name and email
 async function createStudent(name, email) {
     const newStudent = {
         name: name,
@@ -91,6 +101,7 @@ async function createStudent(name, email) {
     return fetch(endpoint + "/students.json", { method: "POST", body: json });
 }
 
+// update student by given id, name and email
 async function updateStudent(id, name, email) {
     const student = { name, email };
     const json = JSON.stringify(student);
@@ -100,12 +111,14 @@ async function updateStudent(id, name, email) {
     });
 }
 
+// delete student by given id
 async function deleteStudent(id) {
     return await fetch(`${endpoint}/students/${id}.json`, { method: "DELETE" });
 }
 
 // ========== HELPER FUNCTIONS ========== //
 // convert object of objects til an array of objects
+// THIS IS ONLY FOR FIREBASE: Firebase returns a big object og objects
 function prepareData(dataObject) {
     const array = []; // define empty array
     // loop through every key in dataObject
@@ -118,6 +131,8 @@ function prepareData(dataObject) {
     return array; // return array back to "the caller"
 }
 
+// export function (references) needed in others modules
+// all exported function cam be imported in other modules
 export {
     getStudents,
     createStudent,
